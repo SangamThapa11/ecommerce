@@ -1,41 +1,43 @@
-import { AppConfig } from '@/config/config';
-import { IImageType, Status } from '@/config/constants';
-
 export interface IBanner {
-  _id: string;
-  title: string;
-  url: string;
-  image: IImageType;
-  status: Status;
-  createdAt?: string;
-  updatedAt?: string;
+    _id: string;
+    title: string;
+    url: string;
+    image: {
+        publicId: string;
+        imageUrl: string;
+        thumbUrl: string;
+    };
+    status: string;
+    createdAt: string;
+    updatedAt: string;
 }
-
-export interface IApiResponse<T> {
-  success: boolean;
-  message?: string;
-  data: T;
-}
-
 class BannerService {
-  private baseUrl: string;
-
-  constructor() {
-    this.baseUrl = (AppConfig.apiBaseUrl || '').replace(/\/$/, '');
-  }
-
- getAllBannerList = async() => {
-    try {
-            const response = await fetch('http://localhost:9005/api/v1/banner', {
-                method: "GET"
-            })
+    async getActiveBanners(): Promise<IBanner[]> {
+        try {
+            const response = await fetch('http://localhost:9005/api/v1/banner/for-home');
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
             const result = await response.json();
-            return result.data;
-        }catch (exception) {
-            throw exception;
+            
+            if (!result.data || !Array.isArray(result.data)) {
+                throw new Error('Invalid data format received from API');
+            }
+            
+            // Validate each banner has required image data
+            return result.data.filter((banner: any) => 
+                banner?.image?.imageUrl && 
+                banner.status === 'active'
+            );
+            
+        } catch (error) {
+            console.error("Error fetching banners:", error);
+            return [];
         }
     }
 }
 
-const BanSvc = new BannerService();
-export default BanSvc;
+const bannerSvc = new BannerService();
+export default bannerSvc;

@@ -3,10 +3,10 @@ import Link from "next/link";
 
 const Footer = () => {
   return (<>
-    <footer className="bg-gray-200">
+    <footer className="bg-purple-500">
       <div className="mx-auto max-w-screen-xl space-y-8 px-4 py-16 sm:px-6 lg:space-y-16 lg:px-8">
         <div className="sm:flex sm:items-center sm:justify-between">
-          <div className="text-teal-600">
+          <div className="text-white">
             <div className="flex-1 md:flex md:items-center md:gap-12">
               <Link className="block text-teal-600" href="/">
                 <span className="sr-only">Home</span>
@@ -26,7 +26,7 @@ const Footer = () => {
                 href="#"
                 rel="noreferrer"
                 target="_blank"
-                className="text-gray-700 transition hover:opacity-75"
+                className="text-white transition hover:opacity-75"
               >
                 <span className="sr-only">Facebook</span>
 
@@ -45,7 +45,7 @@ const Footer = () => {
                 href="#"
                 rel="noreferrer"
                 target="_blank"
-                className="text-gray-700 transition hover:opacity-75"
+                className="text-white transition hover:opacity-75"
               >
                 <span className="sr-only">Instagram</span>
 
@@ -64,7 +64,7 @@ const Footer = () => {
                 href="#"
                 rel="noreferrer"
                 target="_blank"
-                className="text-gray-700 transition hover:opacity-75"
+                className="text-white transition hover:opacity-75"
               >
                 <span className="sr-only">Twitter</span>
 
@@ -82,7 +82,7 @@ const Footer = () => {
                 href="#"
                 rel="noreferrer"
                 target="_blank"
-                className="text-gray-700 transition hover:opacity-75"
+                className="text-white transition hover:opacity-75"
               >
                 <span className="sr-only">Dribbble</span>
 

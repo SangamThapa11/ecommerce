@@ -1,7 +1,9 @@
+'use client'
 import React, { createContext, useContext, useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import type { Gender, Status, UserRoles } from "../config/constants";
-import authSvc from "../lib/auth.service";
+
 import { Spin } from "antd";
+import authSvc from "@/lib/auth.service";
 
 export interface IAuthProviderProps {
     children: React.ReactNode
@@ -16,6 +18,7 @@ export interface UserProfile {
     address: string;
     phone: string,
     image: string,
+    token?: string
 }
 // context hook
 export const AuthContext = createContext({
@@ -32,7 +35,8 @@ export const AuthProvider = ({ children }: Readonly<IAuthProviderProps>) => {
             const response = await authSvc.getLoggedInUser()
             setLoggedInUser(response.data as UserProfile)
         } catch {
-
+           // const { loggedInUser } = useAuth();
+           setLoggedInUser(null)
         } finally {
             setLoading(false)
         }
@@ -49,15 +53,15 @@ export const AuthProvider = ({ children }: Readonly<IAuthProviderProps>) => {
     return (
         <>
             {loading ? (
-                    <Spin fullscreen />
-                ) : (
-                    <AuthContext.Provider value={{
-                        loggedInUser: loggedInUser,
-                        setLoggedInUser: setLoggedInUser
-                    }}>
-                        {children}
-                    </AuthContext.Provider>
-                )
+                <Spin fullscreen />
+            ) : (
+                <AuthContext.Provider value={{
+                    loggedInUser: loggedInUser,
+                    setLoggedInUser: setLoggedInUser
+                }}>
+                    {children}
+                </AuthContext.Provider>
+            )
             }
         </>)
 }

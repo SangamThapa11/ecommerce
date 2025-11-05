@@ -1,4 +1,4 @@
-
+'use client'
 import { Gender, UserRoles } from "@/config/constants";
 import * as Yup from "yup"
 export interface IRegisterData {

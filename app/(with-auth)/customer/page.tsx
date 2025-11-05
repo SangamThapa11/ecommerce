@@ -1,30 +1,32 @@
+'use client'
 
-import HomePageBanner from "@/components/banner/HomePageBanner"
-import HomePageCategoryList from "@/components/category/HomePageList"
-import Sidebar from "@/components/sidebar/sidebar"
-import { Metadata } from "next"
+import { useEffect } from 'react';
+import { useAuth } from '@/context/AuthContext';
+import { useRouter } from 'next/navigation';
 
-// SEO is only for SSR
-export const generateMetadata = async (): Promise<Metadata> => {
-    return {
-        title: "Customer Dashboard || Ecommerce",
-        description: "This is E-Pasal customer dashboard. One of the most famous e-commerce site in Nepal",
-        openGraph: {
-            title: "Customer Dashboard || Ecommerce",
-            description: "This is E-Pasal customer dashboard. One of the most famous e-commerce site in Nepal",
-            type: "website",
-            images: [{url:""}]
+export default function CustomerLandingPage() {
+    const { loggedInUser, isLoading} = useAuth();
+    const router = useRouter();
+
+    useEffect(() => {
+        if (!isLoading) {
+            // Redirect to dashboard if user is logged in
+            if (loggedInUser) {
+                router.push('/customer/dashboard');
+            } else {
+                // If not logged in, redirect to login
+                router.push('/login');
+            }
         }
-    }
-}
-const CustomerDashboard = () => {
-    return (<>
-        <div className="w-full flex">
-            <Sidebar/>
-            <HomePageCategoryList/>
-        </div>
-    
-    </>)
-}
+    }, [loggedInUser, isLoading, router]);
 
-export default CustomerDashboard
+    return (
+        <div className="emerald-500 flex items-center justify-center h-screen">
+            <div className="flex items-center justify-center space-x-2">
+                <div className="w-4 h-4 rounded-full bg-teal-600 animate-pulse"></div>
+                <div className="w-4 h-4 rounded-full bg-teal-600 animate-pulse delay-100"></div>
+                <div className="w-4 h-4 rounded-full bg-teal-600 animate-pulse delay-200"></div>
+            </div>
+        </div>
+    );
+}

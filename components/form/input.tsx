@@ -1,16 +1,17 @@
-import { InputType } from "@/config/constants";
+
+import { InputType } from "@/lib/constants";
 import { Input, Radio, Select, Upload, type UploadFile, Button, type UploadProps } from "antd"
-import { Controller, useController } from "react-hook-form"
+import { Controller, useController, UseFormSetValue } from "react-hook-form"
 import { AiOutlineUpload } from "react-icons/ai"
 
 export interface IInputBasicProps {
-    name: string;
-     control?: any;
-  setValue?: (name: string, value: File) => void;
+  name: string;
+  control?: any;
+  setValue?: UseFormSetValue<any>;
   errMsg?: string | null;
   type?: InputType;
 }
- export interface ISingleOption {
+export interface ISingleOption {
   label: string,
   value: string
 }
@@ -21,6 +22,7 @@ export interface IFileUploadProps {
   accept?: string;
   maxCount?: number;
   errMsg?: string | null;
+  setValue?: UseFormSetValue<any>;
 }
 export interface IMultipleOptionProps extends IInputBasicProps {
   options: Array<ISingleOption>
@@ -153,13 +155,14 @@ export const RadioOption = ({ name, control, options, errMsg = null }: Readonly<
   </>)
 }
 
-export const FileUpload = ({ 
-  name, 
-  control, 
-  multiple = false, 
-  accept, 
+export const FileUpload = ({
+  name,
+  control,
+  multiple = false,
+  accept,
   maxCount,
-  errMsg = null 
+  errMsg = null,
+  setValue 
 }: Readonly<IFileUploadProps>) => {
   return (
     <Controller
@@ -170,6 +173,9 @@ export const FileUpload = ({
           // Convert FileList to array of files
           const files = fileList.map(file => file.originFileObj as File);
           onChange(multiple ? files : files[0]);
+          if (setValue && files[0]) {
+            setValue(name, files[0]);
+          }
         };
 
         // Convert current value to UploadFile[] format with proper typing

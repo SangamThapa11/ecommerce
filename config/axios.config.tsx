@@ -1,20 +1,14 @@
-import axios, { AxiosError, type AxiosResponse } from "axios";
-import { AppConfig } from "./config";
-
+import axios, { AxiosError, AxiosResponse } from "axios";
 
 const axiosConfig = axios.create({
-    baseURL: AppConfig.apiBaseUrl,
-    timeout: 30000,
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  timeout: 30000,
     timeoutErrorMessage: "Server Time Out....",
     responseType: "json",
     headers: {
         "Content-Type": "application/json",
     }
 })
-
-//Interceptors
-// components ---------> axios-------->Interceptor-----------> network 
-// server ----------> axios -----------> intercept ---------> component
 axiosConfig.interceptors.request.use((config) => {
     const accessToken = localStorage.getItem("token_43")
     if (accessToken) {

@@ -3,12 +3,12 @@ import Link from "next/link";
 
 const AuthFooter = () => {
     return(<>
-    <footer className="bg-gray-200">
+    <footer className="bg-purple-500">
   <div className="mx-auto max-w-screen-xl space-y-8 px-4 py-16 sm:px-6 lg:space-y-16 lg:px-8">
     <div className="sm:flex sm:items-center sm:justify-between">
-      <div className="text-teal-600">
+      <div className="text-white">
         <div className="flex-1 md:flex md:items-center md:gap-12">
-        <Link className="block text-teal-600" href="/customer">
+        <Link className="block text-white" href="/customer">
           <span className="sr-only">Home</span>
           <Image
           src= {"/images/logo.png"}
@@ -26,7 +26,7 @@ const AuthFooter = () => {
             href="#"
             rel="noreferrer"
             target="_blank"
-            className="text-gray-700 transition hover:opacity-75"
+            className="text-white transition hover:opacity-75"
           >
             <span className="sr-only">Facebook</span>
 
@@ -45,7 +45,7 @@ const AuthFooter = () => {
             href="#"
             rel="noreferrer"
             target="_blank"
-            className="text-gray-700 transition hover:opacity-75"
+            className="text-white transition hover:opacity-75"
           >
             <span className="sr-only">Instagram</span>
 
@@ -64,7 +64,7 @@ const AuthFooter = () => {
             href="#"
             rel="noreferrer"
             target="_blank"
-            className="text-gray-700 transition hover:opacity-75"
+            className="text-white transition hover:opacity-75"
           >
             <span className="sr-only">Twitter</span>
 
@@ -82,7 +82,7 @@ const AuthFooter = () => {
             href="#"
             rel="noreferrer"
             target="_blank"
-            className="text-gray-700 transition hover:opacity-75"
+            className="text-white transition hover:opacity-75"
           >
             <span className="sr-only">Dribbble</span>
 
@@ -103,11 +103,11 @@ const AuthFooter = () => {
     >
 
       <div>
-            <p className="font-medium text-gray-900">Experience Hassle-Free Online Shopping in Nepal with E-Pasal</p>
+            <p className="font-medium text-white">Experience Hassle-Free Online Shopping in Nepal with E-Pasal</p>
 
             <ul className="mt-6 space-y-4 text-sm">
               <li>
-                <p className="text-gray-700 text-justify transition hover:opacity-75">
+                <p className="text-white text-justify transition hover:opacity-75">
                   E-commerce has evolved over the past few years and since it’s easier and more convenient, it is evident that customers are actually switching to the trend of online shopping. E-Pasal, the Nepali shopping store, brings a whole new concept by showcasing a number of famous brands under one roof. Not only does it fulfill clothing necessities of both men and women but you can also shop for all kinds of appliances like air conditioners, heaters, refrigerators, LED TVs and a lot more. Simply select your favorite brand like Samsung, Apple, HP, Huawei, Dell, Canon, Nikon, etc and get yourself the best electronic items. </p>
               </li>
 
@@ -115,22 +115,22 @@ const AuthFooter = () => {
           </div>
 
           <div>
-            <p className="font-medium text-gray-900">Convenient Online Shopping in Nepal</p>
+            <p className="font-medium text-white">Convenient Online Shopping in Nepal</p>
 
             <ul className="mt-6 space-y-4 text-sm">
               <li>
-                <p className="text-gray-700 text-justify transition hover:opacity-75"> E-Pasal is the ultimate Nepali eCommerce website that offers a solution for all needs of the customers. It has a wide and assorted range of products including clothing, electronics, mobile phones, home and living, health and beauty and much more.
+                <p className="text-white text-justify transition hover:opacity-75"> E-Pasal is the ultimate Nepali eCommerce website that offers a solution for all needs of the customers. It has a wide and assorted range of products including clothing, electronics, mobile phones, home and living, health and beauty and much more.
                   E-Pasal strives to provide customers the best shopping experience in Nepal. The online store is updated daily and new products are added every day to cater to all your needs. Visit E-Pasal.com.np to experience shopping in Nepal as never before. Don't forget to Download E-Pasal App and get exclusive discounts. </p>
               </li>
             </ul>
           </div>
 
           <div>
-            <p className="font-medium text-gray-900">Top Categories & Brands</p>
+            <p className="font-medium text-white">Top Categories & Brands</p>
 
             <ul className="mt-6 space-y-4 text-sm">
               <li>
-                <p className="text-gray-700 transition hover:opacity-75">
+                <p className="text-white transition hover:opacity-75">
                   NEW MOBILE PHONES IN NEPAL <br />
                   Samsung Mobile Phones , Xiaomi Mobiles , Nokia Mobiles , Oppo Mobiles , Apple iPhones , OnePlus , Sony Mobiles , Huawei Mobiles , Lenovo Mobiles , Colors Mobiles , Gionee Mobiles , HTC Mobiles , Umidigi Mobiles , Tablets , Samsung Tablet , Mobile Accessories <br />
                   LATEST LAPTOPS <br />
@@ -149,7 +149,7 @@ const AuthFooter = () => {
           <div>
             <ul className="mt-6 space-y-4 text-sm">
               <li>
-                <p className="text-gray-700 transition hover:opacity-75">
+                <p className="text-white transition hover:opacity-75">
                   ONLINE AUTOMOTIVE STORE <br />
                   Motorcycles - Bikes , Helmets <br />
                   LEADING ONLINE STORES <br />
@@ -166,7 +166,7 @@ const AuthFooter = () => {
           </div>
     </div>
 
-    <p className="text-xs text-gray-500">&copy; 2025. E-Pasal. All rights reserved.</p>
+    <p className="text-xs text-white">&copy; 2025. E-Pasal. All rights reserved.</p>
   </div>
 </footer>
     </>)
