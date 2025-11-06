@@ -241,7 +241,7 @@ class CartService {
       const currentItem = this.currentCartItems.find(item => item.product._id === productId);
       const currentQuantity = currentItem?.quantity || 0;
 
-      let quantityDelta = currentQuantity - newQuantity;
+      const quantityDelta = currentQuantity - newQuantity;
 
       if (quantityDelta === 0) return;
 
