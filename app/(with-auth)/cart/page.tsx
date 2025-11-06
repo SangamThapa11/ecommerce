@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { isAuthenticated, redirectToLogin } from "@/lib/auth";
-import cartSvc, { ICartItem, IProductImage } from "@/lib/cart";
+import cartSvc, { ICartItem } from "@/lib/cart";
 import orderSvc from "@/lib/order.service";
 
 const formatPrice = (price: number): string => {

@@ -38,7 +38,7 @@ export const AuthContext = createContext({
   loggedInUser: null as UserProfile | null,
   setLoggedInUser: (() => { }) as Dispatch<SetStateAction<UserProfile | null>>
 })
-const AuthHeader = ({ role }: Readonly<{ role: UserRoles }>) => {
+const AuthHeader = () => {
   const { loggedInUser, setLoggedInUser } = useAuth();
 
   const [searchQuery, setSearchQuery] = useState('')

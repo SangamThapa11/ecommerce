@@ -47,13 +47,6 @@ interface Order {
   updatedAt: string;
 }
 
-interface KhaltiResponse {
-  pidx: string;
-  payment_url: string;
-  expires_at: string;
-  expires_in: number;
-}
-
 const formatPrice = (price: number): string => {
   return price?.toLocaleString('en-NP') || '0';
 };
@@ -251,7 +244,6 @@ export default function OrdersPage() {
       const urlParams = new URLSearchParams(window.location.search);
       const pidx = urlParams.get('pidx');
       const txnId = urlParams.get('txnId');
-      const status = urlParams.get('status');
 
       // If we have successful payment parameters, redirect to success page
       if (pidx || txnId) {
@@ -276,18 +268,6 @@ export default function OrdersPage() {
 
     checkPaymentReturn();
   }, [orders]);
-
-  const checkPaymentStatus = async (orderCode: string) => {
-    try {
-      console.log('🔍 Checking payment status for order:', orderCode);
-
-      const response = await axiosConfig.get(`/order/${orderCode}/status`);
-      return response.data;
-    } catch (error) {
-      console.error('Error checking payment status:', error);
-      throw error;
-    }
-  };
 
   useEffect(() => {
     const loadOrders = async () => {

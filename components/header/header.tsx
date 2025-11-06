@@ -210,7 +210,7 @@ const Header = () => {
                                     ))
                                 ) : searchQuery.length > 2 ? (
                                     <div className="p-3 text-sm text-gray-500">
-                                        No products found for "{searchQuery}"
+                                        No products found for '{searchQuery}'
                                     </div>
                                 ) : null}
                             </div>
