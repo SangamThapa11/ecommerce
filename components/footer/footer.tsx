@@ -119,7 +119,7 @@ const Footer = () => {
             <ul className="mt-6 space-y-4 text-sm">
               <li>
                 <p className="text-gray-700 text-justify transition hover:opacity-75"> E-Pasal is the ultimate Nepali eCommerce website that offers a solution for all needs of the customers. It has a wide and assorted range of products including clothing, electronics, mobile phones, home and living, health and beauty and much more.
-                  E-Pasal strives to provide customers the best shopping experience in Nepal. The online store is updated daily and new products are added every day to cater to all your needs. Visit E-Pasal.com.np to experience shopping in Nepal as never before. Don't forget to Download E-Pasal App and get exclusive discounts. </p>
+                  E-Pasal strives to provide customers the best shopping experience in Nepal. The online store is updated daily and new products are added every day to cater to all your needs. Visit E-Pasal.com.np to experience shopping in Nepal as never before. Don&apos;t forget to Download E-Pasal App and get exclusive discounts. </p>
               </li>
             </ul>
           </div>
