@@ -256,7 +256,7 @@ const AuthHeader = () => {
                   ))
                 ) : searchQuery.length > 2 ? (
                   <div className="p-3 text-sm text-black">
-                    No products found for "{searchQuery}"
+                    No products found for &quot;{searchQuery}&quot;
                   </div>
                 ) : null}
               </div>
