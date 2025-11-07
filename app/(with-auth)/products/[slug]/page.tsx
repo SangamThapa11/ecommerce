@@ -1,18 +1,13 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import catSvc, { IProductImage } from "@/lib/category";
-import { IProduct } from "@/lib/category";
+import catSvc, { IProductImage, IProduct } from "@/lib/category";
 import AddToCartButton from "@/components/product/AddToCartButton";
 import BuyNowButton from "@/components/product/BuyNowButton";
 import CommentSection from "@/components/product/CommentSection";
 
 // Generate metadata for SEO
-export const generateMetadata = async ({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> => {
+export const generateMetadata = async ({ params }: { params: { slug: string } }): Promise<Metadata> => {
   try {
     const product = await catSvc.getProductDetail(params.slug);
     return {
@@ -39,11 +34,7 @@ export const generateMetadata = async ({
 
 const formatPrice = (price: number): string => (price / 100).toLocaleString();
 
-export default async function ProductDetailPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+export default async function ProductDetailPage({ params }: { params: { slug: string } }) {
   const { slug } = params;
 
   let product: IProduct;
@@ -85,10 +76,7 @@ export default async function ProductDetailPage({
             {product.images.length > 1 && (
               <div className="grid grid-cols-4 gap-2">
                 {product.images.map((image, index) => (
-                  <div
-                    key={index}
-                    className="aspect-square relative rounded overflow-hidden bg-gray-100"
-                  >
+                  <div key={index} className="aspect-square relative rounded overflow-hidden bg-gray-100">
                     <Image
                       src={image.imageUrl}
                       alt={`${product.name} - ${index + 1}`}
@@ -108,9 +96,9 @@ export default async function ProductDetailPage({
           <h1 className="text-3xl font-bold mb-2">{product.name}</h1>
 
           {product.brand && (
-            <span className="text-sm text-gray-600 mb-4 block">
-              Brand: {product.brand.name}
-            </span>
+            <div className="flex items-center gap-4 mb-4">
+              <span className="text-sm text-gray-600">Brand: {product.brand.name}</span>
+            </div>
           )}
 
           <div className="mb-6">
@@ -130,9 +118,7 @@ export default async function ProductDetailPage({
               )}
             </div>
             {product.stock > 0 ? (
-              <span className="text-sm text-green-600">
-                In Stock ({product.stock} available)
-              </span>
+              <span className="text-sm text-green-600">In Stock ({product.stock} available)</span>
             ) : (
               <span className="text-sm text-red-600">Out of Stock</span>
             )}
@@ -161,16 +147,12 @@ export default async function ProductDetailPage({
               </div>
               <div>
                 <h3 className="text-sm font-medium text-gray-500">Added Date</h3>
-                <p className="text-gray-800">
-                  {new Date(product.createdAt).toLocaleDateString()}
-                </p>
+                <p className="text-gray-800">{new Date(product.createdAt).toLocaleDateString()}</p>
               </div>
               <div>
                 <h3 className="text-sm font-medium text-gray-500">Last Updated</h3>
                 <p className="text-gray-800">
-                  {product.updatedAt
-                    ? new Date(product.updatedAt).toLocaleDateString()
-                    : "N/A"}
+                  {product.updatedAt ? new Date(product.updatedAt).toLocaleDateString() : "N/A"}
                 </p>
               </div>
             </div>
@@ -184,31 +166,28 @@ export default async function ProductDetailPage({
         <div className="mt-16">
           <h2 className="text-2xl font-bold mb-6">Related Products</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            {relatedProducts.map((product) => (
-              <div
-                key={product._id}
-                className="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
-              >
-                <Link href={`/product/${product.slug}/detail`}>
+            {relatedProducts.map((related) => (
+              <div key={related._id} className="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
+                <Link href={`/product/${related.slug}/detail`}>
                   <div className="aspect-square relative">
                     <Image
-                      src={product.images[0]?.imageUrl || "/placeholder-product.jpg"}
-                      alt={product.name}
+                      src={related.images[0]?.imageUrl || "/placeholder-product.jpg"}
+                      alt={related.name}
                       fill
                       className="object-cover"
                       sizes="(max-width: 640px) 200px, (max-width: 1024px) 200px, 200px"
                     />
                   </div>
                   <div className="p-3">
-                    <h3 className="font-medium text-sm mb-1 line-clamp-2">{product.name}</h3>
+                    <h3 className="font-medium text-sm mb-1 line-clamp-2">{related.name}</h3>
                     <div className="flex items-center gap-1 mt-2">
-                      {product.discount > 0 && (
+                      {related.discount > 0 && (
                         <span className="text-gray-500 line-through text-xs">
-                          Rs. {formatPrice(product.price)}
+                          Rs. {formatPrice(related.price)}
                         </span>
                       )}
                       <span className="text-teal-600 font-semibold text-sm">
-                        Rs. {formatPrice(product.afterDiscount)}
+                        Rs. {formatPrice(related.afterDiscount)}
                       </span>
                     </div>
                   </div>
