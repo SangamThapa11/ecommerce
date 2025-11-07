@@ -1,18 +1,48 @@
 'use client';
+import { useEffect, useState } from 'react';
 import { IProduct } from '@/lib/category';
 import Image from 'next/image';
 import Link from 'next/link';
-
-interface ForYouSectionProps {
-  products: IProduct[];
-}
 
 const formatPrice = (price: number): string => {
   return (price / 100).toLocaleString();
 };
 
-export default function ForYouSection({ products }: ForYouSectionProps) {
-  if (!products || products.length === 0) return null;
+export default function ForYouPage() {
+  const [products, setProducts] = useState<IProduct[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch('https://e-pasal-backend-2hkb.onrender.com/api/v1/product');
+        const data = await res.json();
+        setProducts(data.result || []);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-gray-600">
+        Loading products...
+      </div>
+    );
+  }
+
+  if (products.length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-gray-600">
+        No products found.
+      </div>
+    );
+  }
 
   return (
     <section className="max-w-6xl mx-auto flex flex-col gap-6 mt-10 pb-10">
