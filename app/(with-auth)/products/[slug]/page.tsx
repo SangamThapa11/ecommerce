@@ -41,8 +41,10 @@ const formatPrice = (price: number): string => {
 export default async function ProductDetailPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
+  const { slug } = await params;
+  
   let product: IProduct;
   let relatedProducts: IProduct[] = [];
 
