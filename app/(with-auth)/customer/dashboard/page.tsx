@@ -3,7 +3,7 @@ import bannerSvc from '@/lib/banner.service';
 import { Metadata } from "next"
 import AuthHomePageCategoryList from "@/components/auth-category/HomePageList";
 import catSvc from '@/lib/category';
-import AuthForYouSection from '../../ForYou/page';
+import ForYouSection from '../../ForYou/page';
 
 
 // SEO is only for SSR
@@ -34,7 +34,7 @@ const CustomerDashboard = async () => {
             </div>
             
              <div className="w-full mb-10">
-                <AuthForYouSection products={featuredProducts} />
+                <ForYouSection products={featuredProducts} />
             </div>
             
             {/* Home Page Categories */}
