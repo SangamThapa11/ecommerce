@@ -6,9 +6,15 @@ import AddToCartButton from "@/components/product/AddToCartButton";
 import BuyNowButton from "@/components/product/BuyNowButton";
 import CommentSection from "@/components/product/CommentSection";
 
+// Update the interface to match Next.js expectations
+interface PageProps {
+  params: Promise<{ slug: string }>;
+}
+
 // Generate metadata for SEO
-export const generateMetadata = async ({ params }: { params: { slug: string } }): Promise<Metadata> => {
+export const generateMetadata = async (props: PageProps): Promise<Metadata> => {
   try {
+    const params = await props.params;
     const product = await catSvc.getProductDetail(params.slug);
     return {
       title: `${product.name} | E-Pasal`,
@@ -34,7 +40,9 @@ export const generateMetadata = async ({ params }: { params: { slug: string } })
 
 const formatPrice = (price: number): string => (price / 100).toLocaleString();
 
-export default async function ProductDetailPage({ params }: { params: { slug: string } }) {
+export default async function ProductDetailPage(props: PageProps) {
+  // Await the params promise
+  const params = await props.params;
   const { slug } = params;
 
   let product: IProduct;
