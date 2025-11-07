@@ -3,10 +3,8 @@ import bannerSvc from '@/lib/banner.service';
 import { Metadata } from "next"
 import AuthHomePageCategoryList from "@/components/auth-category/HomePageList";
 import catSvc from '@/lib/category';
-import ForYouSection from '../../ForYou/page';
+import ForYouPage from '../../ForYou/page';
 
-
-// SEO is only for SSR
 export const generateMetadata = async (): Promise<Metadata> => {
     return {
         title: "Customer Dashboard || Ecommerce",
@@ -21,11 +19,11 @@ export const generateMetadata = async (): Promise<Metadata> => {
 }
 
 const CustomerDashboard = async () => {
-    // const banners = await bannerSvc.getActiveBanners();
     const [banners, featuredProducts] = await Promise.all([
         bannerSvc.getActiveBanners(),
         catSvc.getFeaturedProducts(6)
     ]);
+    
     return (
         <div className="bg-purple-300 max-w-screen-xl mx-auto px-8 text-justify">
             {/* Banner Section */}
@@ -33,8 +31,9 @@ const CustomerDashboard = async () => {
                 <BannerSlider banners={banners} />
             </div>
             
-             <div className="w-full mb-10">
-                <ForYouSection products={featuredProducts} />
+            {/* For You Section - without props since it fetches its own data */}
+            <div className="w-full mb-10">
+                <ForYouPage />
             </div>
             
             {/* Home Page Categories */}
@@ -45,4 +44,4 @@ const CustomerDashboard = async () => {
     )
 }
 
-export default CustomerDashboard  
+export default CustomerDashboard
