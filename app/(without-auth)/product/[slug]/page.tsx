@@ -1,15 +1,14 @@
-//export { default } from '../../../../components/product/[slug]/ProductDetailPage'
 import { Metadata } from "next";
 import Image from "next/image";
-//import Link from "next/link";
 import catSvc, { IProductImage } from "@/lib/category";
 import { IProduct } from "@/lib/category";
 import Link from "next/link";
 
 // Generate metadata for SEO
-export const generateMetadata = async ({params,}: {params: { slug: string };}): Promise<Metadata> => {
+export const generateMetadata = async ({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> => {
   try {
-    const product = await catSvc.getProductDetail(params.slug);
+    const { slug } = await params;
+    const product = await catSvc.getProductDetail(slug);
     return {
       title: `${product.name} | E-Pasal`,
       description: product.description.substring(0, 160),
@@ -32,16 +31,23 @@ export const generateMetadata = async ({params,}: {params: { slug: string };}): 
   }
 };
 
+const formatPrice = (price: number): string => {
+  return (price / 100).toLocaleString();
+};
+
 export default async function ProductDetailPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
+  // Await the params promise first
+  const { slug } = await params;
+
   let product: IProduct;
   let relatedProducts: IProduct[] = [];
 
   try {
-    const response = await catSvc.getProductDetail(params.slug);
+    const response = await catSvc.getProductDetail(slug);
     product = response.product;
     relatedProducts = response.relatedProducts || [];
   } catch (error) {
@@ -121,11 +127,11 @@ export default async function ProductDetailPage({
             <div className="flex items-center gap-3">
               {product.discount > 0 && (
                 <span className="text-lg text-gray-500 line-through">
-                  Rs. {product.price.toLocaleString()}
+                  Rs. {formatPrice(product.price)}
                 </span>
               )}
               <span className="text-2xl font-bold text-teal-600">
-                Rs. {product.afterDiscount.toLocaleString()}
+                Rs. {formatPrice(product.afterDiscount)}
               </span>
               {product.discount > 0 && (
                 <span className="bg-red-100 text-red-600 text-sm px-2 py-1 rounded">
@@ -205,7 +211,7 @@ export default async function ProductDetailPage({
                 key={product._id}
                 className="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
               >
-                <Link href={`/product/${product.slug}/detail`}>
+                <Link href={`/product/${product.slug}`}>
                   <div className="aspect-square relative">
                     <Image
                       src={
@@ -224,11 +230,11 @@ export default async function ProductDetailPage({
                     <div className="flex items-center gap-1 mt-2">
                       {product.discount > 0 && (
                         <span className="text-gray-500 line-through text-xs">
-                          Rs. {product.price.toLocaleString()}
+                          Rs. {formatPrice(product.price)}
                         </span>
                       )}
                       <span className="text-teal-600 font-semibold text-sm">
-                        Rs. {product.afterDiscount.toLocaleString()}
+                        Rs. {formatPrice(product.afterDiscount)}
                       </span>
                     </div>
                   </div>
