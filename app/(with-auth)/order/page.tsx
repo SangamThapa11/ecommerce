@@ -370,7 +370,7 @@ export default function OrdersPage() {
             </div>
             <h2 className="text-2xl font-bold text-gray-900 mb-3">No Orders Yet</h2>
             <p className="text-gray-600 mb-8 max-w-sm mx-auto">
-              You haven't placed any orders yet. Start shopping to see your orders here.
+              You haven&apos;t placed any orders yet. Start shopping to see your orders here.
             </p>
             <Link
               href="/"
