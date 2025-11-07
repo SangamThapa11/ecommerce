@@ -5,20 +5,18 @@ import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
 
 export default function CustomerLandingPage() {
-    const { loggedInUser, isLoading} = useAuth();
+    const { loggedInUser } = useAuth(); // Remove isLoading
     const router = useRouter();
 
     useEffect(() => {
-        if (!isLoading) {
-            // Redirect to dashboard if user is logged in
-            if (loggedInUser) {
-                router.push('/customer/dashboard');
-            } else {
-                // If not logged in, redirect to login
-                router.push('/login');
-            }
+        // Check if user is logged in and redirect accordingly
+        if (loggedInUser) {
+            router.push('/customer/dashboard');
+        } else {
+            // If not logged in, redirect to login
+            router.push('/login');
         }
-    }, [loggedInUser, isLoading, router]);
+    }, [loggedInUser, router]);
 
     return (
         <div className="emerald-500 flex items-center justify-center h-screen">
