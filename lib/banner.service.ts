@@ -1,3 +1,5 @@
+import axiosConfig, { AxiosSuccessResponse } from "@/config/axios.config";
+
 export interface IBanner {
   _id: string;
   title: string;
@@ -12,33 +14,42 @@ export interface IBanner {
   updatedAt: string;
 }
 
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL ||
-  "https://e-pasal-backend-2hkb.onrender.com"; // fallback for local builds
-
 class BannerService {
   async getActiveBanners(): Promise<IBanner[]> {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/v1/banner/for-home`, {
-        cache: "no-store", // optional: avoid cached responses on SSR
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const result = await response.json();
-
-      if (!result.data || !Array.isArray(result.data)) {
-        throw new Error("Invalid data format received from API");
-      }
-
-      return result.data.filter(
-        (banner: any) => banner?.image?.imageUrl && banner.status === "active"
+      // Perform GET request using axiosConfig
+      const response: AxiosSuccessResponse = await axiosConfig.get(
+        "/banner/for-home"
       );
-    } catch (error) {
+
+      const result = response.data;
+
+      if (!result?.data || !Array.isArray(result.data)) {
+        console.error("Invalid banner response format:", result);
+        throw new Error("Invalid banner data structure");
+      }
+
+      // Filter active banners with image
+      const activeBanners = result.data.filter(
+        (banner: any) =>
+          banner?.status === "active" && banner?.image?.imageUrl
+      );
+
+      return activeBanners;
+    } catch (error: any) {
       console.error("Error fetching banners:", error);
-      return [];
+
+      if (error.response?.data) {
+        throw new Error(
+          error.response.data.message ||
+            error.response.data.error ||
+            "Failed to fetch banners"
+        );
+      } else if (error.request) {
+        throw new Error("Network error: Unable to connect to server");
+      } else {
+        throw new Error(error.message || "Failed to fetch banners");
+      }
     }
   }
 }
